@@ -286,7 +286,8 @@ jalv_save_preset(Jalv*       jalv,
 			sprintf(full_dir, "%s", dir);
 	else
 		if(strlen(bank_name))
-			sprintf(full_dir, "./%s_%s", plugin_name, bank_name);
+			sprintf(full_dir, "./%s", bank_name);
+			//sprintf(full_dir, "./%s_%s", plugin_name, bank_name);
 		else
 			sprintf(full_dir, ".");
 

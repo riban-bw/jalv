@@ -154,12 +154,21 @@ jalv_print_controls(Jalv* jalv, bool writable, bool readable)
 }
 
 static int
-jalv_print_preset(Jalv*           ZIX_UNUSED(jalv),
+jalv_print_preset(Jalv*           jalv,
                   const LilvNode* node,
                   const LilvNode* title,
                   void*           ZIX_UNUSED(data))
 {
-	printf("%s (%s)\n", lilv_node_as_string(node), lilv_node_as_string(title));
+	LilvNode* bank = lilv_world_get(
+		jalv->world, node, jalv->nodes.pset_bank, NULL);
+	if (bank) {
+		LilvNode* bank_label = lilv_world_get(
+			jalv->world, bank, jalv->nodes.rdfs_label, NULL);
+		printf("%s (%s/%s)\n", lilv_node_as_string(node), lilv_node_as_string(bank_label), lilv_node_as_string(title));
+	} else {
+		printf("%s (%s)\n", lilv_node_as_string(node), lilv_node_as_string(title));
+	}
+
 	return 0;
 }
 
