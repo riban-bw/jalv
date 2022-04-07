@@ -220,7 +220,6 @@ jalv_apply_preset(Jalv* jalv, const LilvNode* preset)
 int
 fix_symbol(char* symbol, const char* additional_chars)
 {
-	printf("fix_symbol('%s', '%s')\n", symbol, additional_chars);
 	int ret = 0;
 	for (uint32_t i = 0; i < strlen(symbol); ++i) {
 		uint32_t bad_char = 1;
@@ -238,7 +237,6 @@ fix_symbol(char* symbol, const char* additional_chars)
 			++ret;
 		}
 	}
-	printf("%d chars changed: '%s'\n", ret, symbol);
 	return ret;
 }
 
@@ -274,14 +272,15 @@ jalv_save_preset(Jalv*       jalv,
 	}
 	fix_symbol(bank_name, "");
 
-	char* plugin_name;
-	LilvNode* name = lilv_plugin_get_name(jalv->plugin);
-	plugin_name = jalv_strdup(lilv_node_as_string(name));
-	lilv_node_free(name);
+	//char* plugin_name;
+	//LilvNode* name = lilv_plugin_get_name(jalv->plugin);
+	//plugin_name = jalv_strdup(lilv_node_as_string(name));
+	//lilv_node_free(name);
 
 	if(dir)
 		if(strlen(bank_name))
-			sprintf(full_dir, "%s/%s_%s", dir, plugin_name, bank_name);
+			sprintf(full_dir, "%s/%s", dir, bank_name);
+			//sprintf(full_dir, "%s/%s_%s", dir, plugin_name, bank_name);
 		else
 			sprintf(full_dir, "%s", dir);
 	else
